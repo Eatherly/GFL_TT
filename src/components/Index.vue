@@ -38,7 +38,7 @@
 
 <script>
 
-  import userForm from './modals/user-form.vue'
+  import  userForm  from "./modals/user-form.vue";
 
   export default {
     components: {userForm},
@@ -49,43 +49,43 @@
         editCase: 0,
         budies: [ ],
         budyForEdit: {}
-      }
+      };
     },
     created() {
-      this.budies =  JSON.parse(localStorage.getItem('budies')) || []
+      this.budies =  JSON.parse(localStorage.getItem("budies")) || [];
     },
     methods: {
 
       clickDelete(budy) {
-        this.$bvModal.msgBoxConfirm('Are you sure?')
+        this.$bvModal.msgBoxConfirm("Are you sure?")
           .then(value => {
               if(value){
-                this.budies = this.budies.filter(item => item.email != budy.email)
-                localStorage.setItem('budies', JSON.stringify(this.budies))
+                this.budies = this.budies.filter(item => item.email != budy.email);
+                localStorage.setItem("budies", JSON.stringify(this.budies));
                 }
-          })
+          });
       }, 
 
       resetEditMode () {
-        this.budyForEdit = {}
+        this.budyForEdit = {};
       },
 
       addEditBudy (budy) {
         if(this.budyForEdit.email != budy.email ) {
-          this.budies.push(budy)
+          this.budies.push(budy);
         }
-        else this.budies = this.budies.map(item => item.email == budy.email ? budy : item)
-        this.resetEditMode()
-        localStorage.setItem('budies', JSON.stringify(this.budies))
+        else this.budies = this.budies.map(item => item.email == budy.email ? budy : item);
+        this.resetEditMode();
+        localStorage.setItem("budies", JSON.stringify(this.budies));
       },
 
       clickEdit (budy) {
-        this.budyForEdit = budy
-        this.editCase++
+        this.budyForEdit = budy;
+        this.editCase++;
       }
       
     }
-  }
+  };
 </script>
 <style lang="scss" scoped >
 

@@ -59,7 +59,7 @@
 </template>
 
 <script>
-  import {email, required, minLength} from 'vuelidate/lib/validators'
+  import {email, required, minLength} from "vuelidate/lib/validators";
  
 
   export default {
@@ -70,9 +70,9 @@
       budyForEdit : {
         type: Object,
         default: () => ({
-            name: '',
-            lastName: '',
-            email: ''
+            name: "",
+            lastName: "",
+            email: ""
           }
         )
       },
@@ -83,13 +83,13 @@
     },
     data() {
       return {
-        name: '',
-        lastName: '',
-        email: '',
+        name: "",
+        lastName: "",
+        email: "",
         alreadyExist: false,
         budy: {},
         editMode: false
-      }
+      };
     },
     validations: {
         name: {required, minLength: minLength(3)},
@@ -99,84 +99,84 @@
 
     computed: {
       nameState () {
-        return this.name.length ? this.$v.name.required && this.$v.name.minLength : null
+        return this.name.length ? this.$v.name.required && this.$v.name.minLength : null;
       },
       lastNameState () {
-        return this.lastName.length ? this.$v.lastName.required && this.$v.lastName.minLength : null
+        return this.lastName.length ? this.$v.lastName.required && this.$v.lastName.minLength : null;
       },
       emailState () {
-        return this.email.length ? this.$v.email.required && this.$v.email.email : null
+        return this.email.length ? this.$v.email.required && this.$v.email.email : null;
       }
     },
 
     mounted () {
-      this.$watch('editCase',
+      this.$watch("editCase",
         function () {
-          this.name = this.budyForEdit.name
-          this.lastName = this.budyForEdit.lastName
-          this.email = this.budyForEdit.email
+          this.name = this.budyForEdit.name;
+          this.lastName = this.budyForEdit.lastName;
+          this.email = this.budyForEdit.email;
           this.$refs.addEditBtn.click();
         }
-      )
+      );
     },
 
     methods: {
       checkEmail() {
          if (!this.budyForEdit.email && this.budies.find((item) => item.email == this.email)) {
-           this.alreadyExist = true
-           return true
+           this.alreadyExist = true;
+           return true;
          }
-         else this.alreadyExist = false
-         return false
+         else this.alreadyExist = false;
+         return false;
       },
 
       resetModal() {    
-        this.alreadyExist = false  
-        this.nameState = null
-        this.lastNameState = null
-        this.emailState = null
-        if(this.budyForEdit.email) return
-        this.name = ''
-        this.lastName = ''
-        this.email = ''
+        this.alreadyExist = false;
+        this.nameState = null;
+        this.lastNameState = null;
+        this.emailState = null;
+        if(this.budyForEdit.email) return;
+        this.name = "";
+        this.lastName = "";
+        this.email = "";
       },
 
       hiddenModal () {
-        this.$emit('reset-edit-mode');
-        this.resetModal()
+        this.$emit("reset-edit-mode");
+        this.resetModal();
       },
 
       handleOk(bvModalEvt) {
         // Prevent modal from closing
-        bvModalEvt.preventDefault()
+        bvModalEvt.preventDefault();
         // Trigger submit handler
-        this.handleSubmit()
+        this.handleSubmit();
       },
 
       handleSubmit() {
         if(this.$v.$invalid) {
-           return 
+           return;
          }
 
          if (this.checkEmail() && !this.budyForEdit.email) {
-          return
+          return;
         }
         
-        this.budy.name = this.name
-        this.budy.lastName = this.lastName
-        this.budy.email = this.email
+        this.budy.name = this.name;
+        this.budy.lastName = this.lastName;
+        this.budy.email = this.email;
 
 
-        this.$emit('add-edit-budy', this.budy);
-        this.budy = {}
+        this.$emit("add-edit-budy", this.budy);
+        this.budy = {};
         //this.$emit('reset-edit-mode');
-        this.resetModal()
+        this.resetModal();
         this.$nextTick(() => {
-          this.$bvModal.hide('modal-prevent-closing')
-        })
+          this.$bvModal.hide("modal-prevent-closing");
+        });
       }
     }
-  }
+  };
 </script>
 <style lang="scss" scoped >
   .warning_exist {
